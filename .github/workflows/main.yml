@@ -32,5 +32,6 @@ jobs:
                 echo "\nend" >> README.md
                 git config --global user.email "nuno@add3.io"
                 git config --global user.name "Nuno Cervaens"
+                git add .
                 git commit -m "testing"
                 git push
