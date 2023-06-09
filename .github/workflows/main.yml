@@ -31,8 +31,8 @@ jobs:
             - name: Check or a change and push
               working-directory: add3-blockchain
               run: |
-                git config --global user.email "nuno@add3.io"
-                git config --global user.name "Nuno Cervaens"
+                git config --global user.email "noreply@add3.io"
+                git config --global user.name "No Reply"
                 git add .
                 git commit -m "testing"
                 git push
