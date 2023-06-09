@@ -25,3 +25,10 @@ jobs:
             
             - name: Ls bb
               run: ls -la
+
+            - name: Emulate a change and push
+              working-directory: add3-blockchain
+              run: |
+                echo "\nend" >> README.md
+                git commit -m "testing"
+                git push
