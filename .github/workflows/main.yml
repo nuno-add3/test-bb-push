@@ -15,7 +15,10 @@ jobs:
               run: ls -la
               
             - name: Git clone
-              run: git clone git@bitbucket.org:add3-main/add3-blockchain.git
+              run: |
+                eval `ssh-agent -s`
+                ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
+                git clone git@bitbucket.org:add3-main/add3-blockchain.git
             
             - name: Ls bb
               run: ls -la
