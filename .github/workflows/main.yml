@@ -34,7 +34,7 @@ jobs:
                 git config --global user.email "noreply@add3.io"
                 git config --global user.name "No Reply"
                 git add .
-                git status --porcelain | wc -l
+                git status --porcelain
                 if [[ $(git status --porcelain | wc -l) -gt 0 ]]; then
                   echo "Pushing changes"
                   git commit -m "testing"
