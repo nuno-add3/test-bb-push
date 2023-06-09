@@ -7,14 +7,15 @@ jobs:
   test-bb:
     runs-on: ubuntu-latest
     steps:
-            - uses: actions/checkout@v3
-              with:
-                  repository: 'git@bitbucket.org:add3-main/add3-blockchain.git'
-                  path: 'dest'
-                  ref: 'develop'    
             - uses: webfactory/ssh-agent@v0.7.0
               with:
                   ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
                   
             - name: Display environment variable "is-auto-commit"
+              run: ls -la
+              
+            - name: Git clone
+              run: git clone git@bitbucket.org:add3-main/add3-blockchain.git
+            
+            - name: Ls bb
               run: ls -la
