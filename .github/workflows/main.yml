@@ -18,10 +18,8 @@ jobs:
                 fetch-depth: 0
             - name: Git clone
               run: |
-                eval `ssh-agent -s`
-                ssh-add - <<< '${{ secrets.SSH_PRIVATE_KEY }}'
                 ssh-keyscan -t rsa bitbucket.org >> ~/.ssh/known_hosts
-                git clone git@bitbucket.org:add3-main/add3-blockchain.git
+                git clone -b develop git@bitbucket.org:add3-main/add3-blockchain.git
             
             - name: Ls bb
               run: ls -la
