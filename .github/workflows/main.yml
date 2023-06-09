@@ -30,5 +30,7 @@ jobs:
               working-directory: add3-blockchain
               run: |
                 echo "\nend" >> README.md
+                git config --global user.email "nuno@add3.io"
+                git config --global user.name "Nuno Cervaens"
                 git commit -m "testing"
                 git push
