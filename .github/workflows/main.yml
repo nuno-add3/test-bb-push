@@ -23,10 +23,10 @@ jobs:
             
             - name: Copy files we want to duplicate
               run: |
-                cp -R abi add3-blockchain
-                cp StakingDynamic.sol add3-blockchain
-                cp StakingStatic.sol add3-blockchain
-                cp VestingModule.sol add3-blockchain
+                cp -R abi add3-blockchain || true
+                cp StakingDynamic.sol add3-blockchain || true
+                cp StakingStatic.sol add3-blockchain || true
+                cp VestingModule.sol add3-blockchain || true
 
             - name: Check or a change and push
               working-directory: add3-blockchain
