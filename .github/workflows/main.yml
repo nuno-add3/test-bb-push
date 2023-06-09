@@ -6,14 +6,7 @@ on:
 jobs:
   test-bb:
     runs-on: ubuntu-latest
-    steps:
-            - uses: webfactory/ssh-agent@v0.7.0
-              with:
-                  ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-                  
-            - name: Display environment variable "is-auto-commit"
-              run: ls -la
-              
+    steps:           
             - name: Git clone
               run: |
                 eval `ssh-agent -s`
