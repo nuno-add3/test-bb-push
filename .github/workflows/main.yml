@@ -21,13 +21,16 @@ jobs:
                 ssh-keyscan -t rsa bitbucket.org >> ~/.ssh/known_hosts
                 git clone -b develop git@bitbucket.org:add3-main/add3-blockchain.git
             
-            - name: Ls bb
-              run: ls -la
+            - name: Copy files we want to duplicate
+              run: |
+                cp -R abi add3-blockchain
+                cp StakingDynamic.sol add3-blockchain
+                cp StakingStatic.sol add3-blockchain
+                cp VestingModule.sol add3-blockchain
 
-            - name: Emulate a change and push
+            - name: Check or a change and push
               working-directory: add3-blockchain
               run: |
-                echo "\nend" >> README.md
                 git config --global user.email "nuno@add3.io"
                 git config --global user.name "Nuno Cervaens"
                 git add .
