@@ -7,12 +7,11 @@ jobs:
   test-bb:
     runs-on: ubuntu-latest
     steps:
-            - name: Checkout
             - uses: actions/checkout@v3
               with:
                   repository: 'git@bitbucket.org:add3-main/add3-blockchain.git'
                   path: 'dest'
-                  ref: 'develop'
+                  ref: 'develop'    
             - uses: webfactory/ssh-agent@v0.7.0
               with:
                   ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
