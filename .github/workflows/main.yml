@@ -20,10 +20,13 @@ jobs:
               run: |
                 ssh-keyscan -t rsa bitbucket.org >> ~/.ssh/known_hosts
                 if [[ ${GITHUB_REF##*/} -eq "main" ]]; then
+                  echo "Getting master branch"
                   git clone -b master git@bitbucket.org:add3-main/add3-blockchain.git
                 elif [[ ${GITHUB_REF##*/} -eq "dev" ]]; then
+                  echo "Getting develop branch"
                   git clone -b develop git@bitbucket.org:add3-main/add3-blockchain.git
                 else 
+                  echo "Getting ${GITHUB_REF##*/} branch"
                   git clone -b ${GITHUB_REF##*/} git@bitbucket.org:add3-main/add3-blockchain.git
                 fi
             
