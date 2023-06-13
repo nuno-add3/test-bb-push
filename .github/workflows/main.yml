@@ -19,6 +19,7 @@ jobs:
             - name: Get branch name
               run: |
                 branch_name=${GITHUB_REF##*/}
+                echo "$branch_name"
             - name: Git clone
               run: |
                 echo "$branch_name"
