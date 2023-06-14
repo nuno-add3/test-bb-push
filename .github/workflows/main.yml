@@ -1,6 +1,6 @@
 name: Sync some files with BitBucket
 on:
-  push:
+  pull_request:
     branches:
       - main
 jobs:
