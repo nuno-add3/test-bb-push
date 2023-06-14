@@ -21,10 +21,10 @@ jobs:
               run: |
                 echo Hello world from $GITHUB_BASE_REF!
                 ssh-keyscan -t rsa bitbucket.org >> ~/.ssh/known_hosts
-                if [[ ${{ github.base_ref }} -eq "main" ]]; then
+                if [[ $GITHUB_BASE_REF -eq "main" ]]; then
                   echo "Getting master branch"
                   git clone -b master git@bitbucket.org:add3-main/add3-blockchain.git
-                elif [[ ${{ github.base_ref }}  -eq "dev" ]]; then
+                elif [[ $GITHUB_BASE_REF  -eq "dev" ]]; then
                   echo "Getting develop branch"
                   git clone -b develop git@bitbucket.org:add3-main/add3-blockchain.git
                 else 
