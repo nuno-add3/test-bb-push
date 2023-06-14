@@ -19,7 +19,7 @@ jobs:
                 fetch-depth: 0
             - name: Git clone
               run: |
-                echo Hello world from ${GITHUB_REF##*/} ${github.ref} ${github.base_ref}!
+                echo Hello world from ${GITHUB_REF##*/} ${{github.ref}} ${{github.base_ref}}!
                 ssh-keyscan -t rsa bitbucket.org >> ~/.ssh/known_hosts
                 if [[ ${GITHUB_REF##*/} == "main" ]]; then
                   echo "Getting master branch"
