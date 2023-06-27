@@ -1,21 +1,53 @@
-name: Continuous Integration
+name: Sync some files with BitBucket
 on:
-  push:
+  pull_request:
     branches:
       - main
 jobs:
-  test-bb:
+  sync-with-bb:
     runs-on: ubuntu-latest
     steps:
-            - name: Checkout
-            - uses: actions/checkout@v3
-              with:
-                  repository: 'git@bitbucket.org:add3-main/add3-blockchain.git'
-                  path: 'dest'
-                  ref: 'develop'
-            - uses: webfactory/ssh-agent@v0.7.0
+            - name: Set up ssh-agent
+              uses: webfactory/ssh-agent@v0.7.0
               with:
                   ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
                   
-            - name: Display environment variable "is-auto-commit"
-              run: ls -la
+            - name: Checking out this repo
+              uses: actions/checkout@v3
+              with:
+                fetch-depth: 0
+            - name: Git clone
+              run: |
+                ssh-keyscan -t rsa bitbucket.org >> ~/.ssh/known_hosts
+                if [[ ${GITHUB_REF##*/} -eq "main" ]]; then
+                  echo "Getting master branch"
+                  git clone -b master git@bitbucket.org:add3-main/add3-blockchain.git
+                elif [[ ${GITHUB_REF##*/} -eq "dev" ]]; then
+                  echo "Getting develop branch"
+                  git clone -b develop git@bitbucket.org:add3-main/add3-blockchain.git
+                else 
+                  echo "Getting ${GITHUB_REF##*/} branch"
+                  git clone -b ${GITHUB_REF##*/} git@bitbucket.org:add3-main/add3-blockchain.git
+                fi
+            
+            - name: Copy files we want to duplicate
+              run: |
+                cp -R abi add3-blockchain || true
+                cp StakingDynamic.sol add3-blockchain || true
+                cp StakingStatic.sol add3-blockchain || true
+                cp VestingModule.sol add3-blockchain || true
+
+            - name: Check or a change and push
+              working-directory: add3-blockchain
+              run: |
+                git config --global user.email "noreply@add3.io"
+                git config --global user.name "No Reply"
+                git add .
+                git status --porcelain
+                if [[ $(git status --porcelain | wc -l) -gt 0 ]]; then
+                  echo "Pushing changes"
+                  git commit -m "testing"
+                  git push
+                else
+                  echo "No changes to push"
+                fi
